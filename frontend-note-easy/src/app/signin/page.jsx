@@ -1,11 +1,26 @@
-import React from "react";
+"use client"
 
-export const metadata = {
-  title: "Sign in",
-  description: "Sign in page",
-};
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from 'next/navigation'
 
 export default function SigninPage() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const router = useRouter()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:3001/signin', { email, password })
+    .then(result => {
+      console.log(result)
+      if(result.data === "Success") {
+        router.push('/welcome')
+    }
+  })
+    .catch(err => console.log(err))
+  }
   return (
     <div className="bg-slate-200 flex h-screen flex-1 flex-col justify-center items-center">
       <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
@@ -16,7 +31,7 @@ export default function SigninPage() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-7">
+          <form onSubmit={handleSubmit} method="POST" className="space-y-7">
           <div>
               <label
                 htmlFor="email"
@@ -32,6 +47,7 @@ export default function SigninPage() {
                   required
                   autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
             </div>
@@ -53,6 +69,7 @@ export default function SigninPage() {
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>

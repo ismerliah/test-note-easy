@@ -3,18 +3,21 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import { Input } from "@material-tailwind/react";
+import { useRouter } from 'next/navigation'
 
 
 export default function RegisterPage() {
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const router = useRouter()
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://127.0.0.1:3001/register', { email, username, password })
-    .then(result => console.log(result))
+    .then(result => console.log(result),
+    router.push('/signin')
+  )
     .catch(err => console.log(err))
   }
 
