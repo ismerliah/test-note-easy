@@ -1,13 +1,10 @@
 "use client"
+
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { Input } from "@material-tailwind/react";
 
-export const metadata = {
-  title: "Register",
-  description: "Register page",
-};
 
 export default function RegisterPage() {
   const [email, setEmail] = useState();
@@ -16,8 +13,8 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3000/register', { email, username, password })
-    .then(res => console.log(res))
+    axios.post('http://127.0.0.1:3001/register', { email, username, password })
+    .then(result => console.log(result))
     .catch(err => console.log(err))
   }
 
@@ -31,7 +28,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form onSubmit={handleSubmit} className="space-y-7">
+          <form onSubmit={handleSubmit} method="POST"  className="space-y-7">
 
           <div>
               <label
@@ -98,6 +95,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
+                //onSubmit={handleSubmit}
               >
                 Register
               </button>
