@@ -14,7 +14,7 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://127.0.0.1:3001/register', { email, username, password })
+    axios.post('http://localhost:3001/register', { email, username, password })
     .then(result => console.log(result),
     router.push('/signin')
   )
@@ -98,7 +98,6 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 "
-                //onSubmit={handleSubmit}
               >
                 Register
               </button>
