@@ -10,26 +10,27 @@ export default function SigninPage() {
     <div className="bg-slate-200 flex h-screen flex-1 flex-col justify-center items-center">
       <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-8 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-5 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in
           </h2>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form action="#" method="POST" className="space-y-7">
-            <div>
+          <div>
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Username
+                Email
               </label>
               <div className="mt-2">
                 <input
-                  id="username"
-                  name="username"
-                  type="text"
+                  id="email"
+                  name="email"
+                  type="email"
                   required
+                  autoComplete="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
                 />
               </div>
