@@ -4,6 +4,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
+import Appbar from "../components/appbar";
 
 
 export default function RegisterPage() {
@@ -22,7 +23,9 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="bg-slate-200 flex h-screen flex-1 flex-col justify-center items-center">
+    <div className="bg-slate-100">
+      <Appbar/>
+      <div className="flex h-screen flex-1 flex-col justify-center items-center">
       <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="mt-3 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
@@ -114,6 +117,7 @@ export default function RegisterPage() {
             </a>
           </p>
         </div>
+      </div>
       </div>
     </div>
   );

@@ -1,14 +1,13 @@
-import Link from "next/link";
 
 export const metadata = {
-  title: "Home",
-  description: "Home page",
+  title: "First",
+  description: "First page",
 };
 
-export default function Home() {
+export default function First() {
   return (
     <main>
-      <div className="bg-slate-200 flex h-screen flex-1 flex-col justify-center items-center">
+      <div className="bg-slate-100 flex h-screen flex-1 flex-col justify-center items-center">
         <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-8 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">

@@ -12,7 +12,7 @@ app.use(cors())
 
 mongoose.connect("mongodb://127.0.0.1:27017/user");
 
-app.post('/signin', (req ,res) => {
+app.post('signin', (req ,res) => {
     const { email, password } = req.body
     UserModel.findOne({ email : email})
     .then(user => {

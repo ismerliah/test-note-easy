@@ -12,10 +12,19 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+
+      colors: {
+        'maroon-red': '#B81D33',
+      },
+
+      fontFamily: {
+        agbalumo: ['Agbalumo', 'sans-serif'],
+       },
     },
   },
   plugins: [
     require('@tailwindcss/forms'),
+    require('@headlessui/tailwindcss'),
     // ...
   ],
 };
