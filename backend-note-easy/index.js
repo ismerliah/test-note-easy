@@ -11,7 +11,11 @@ const NoteModel = require('./models/note')
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}))
 
 app.use(cookieParser())
 
@@ -32,7 +36,7 @@ app.post('/api/signin', (req ,res) => {
         if (user) {
             bycrypt.compare(password, user.password, (err, response) => {
                 if(response) {
-                    const token = jwt.sign({ email }, 'secret', { expiresIn: '1h' }) 
+                    const token = jwt.sign({ email : user.email }, 'secret', { expiresIn: '1h' }) 
                     res.cookie('token', token)
                     return res.json("User signed in")
                 } else {

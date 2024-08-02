@@ -6,11 +6,12 @@ import axios from "axios";
 function Modal({ isOpen, closeModal }) {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
+  const timeElapsed = Date.now();
+  const today = new Date(timeElapsed);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) =>{
     e.preventDefault();
-    axios
-      .post("http://localhost:3001/note", { title, content })
+    axios.post("http://localhost:3001/note", { title, content, date: today.toLocaleDateString() })
       .then((result) => console.log(result),
       closeModal()
     )

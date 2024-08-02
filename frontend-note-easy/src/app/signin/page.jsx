@@ -11,12 +11,13 @@ export default function SigninPage() {
   const [password, setPassword] = useState();
   const router = useRouter()
 
+  axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault();
     axios.post('http://localhost:3001/api/signin', { email, password })
     .then(result => {
       console.log(result)
-      if(result) {
+      if(result.data === 'User signed in') {
         router.push('/home')
     }
   })

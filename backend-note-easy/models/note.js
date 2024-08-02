@@ -7,6 +7,9 @@ const NoteSchema = new mongoose.Schema({
     content : {
         type: String,        
     },
+    date : {
+        type: String, 
+    }
 })
 
 const NoteModel = mongoose.model('notes', NoteSchema)
