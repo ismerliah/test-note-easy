@@ -14,7 +14,10 @@ module.exports = {
       },
 
       colors: {
-        'maroon-red': '#B81D33',
+        'A91D3A': '#A91D3A', //red
+        'EEEEEE': '#EEEEEE', //white
+        'C75B7A': '#C75B7A', //pink
+        '151515': '#151515', //black
       },
 
       fontFamily: {
