@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import axios from "axios";
@@ -6,12 +6,26 @@ import axios from "axios";
 function Modal({ isOpen, closeModal }) {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
+  const [username, setUsername] = useState();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
-  const handleSubmit = (e) =>{
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/user");
+        setUsername(response.data.username);
+        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleSubmit = async (e) =>{
     e.preventDefault();
-    axios.post("http://localhost:3001/note", { title, content, date: today.toLocaleDateString() })
+    await axios.post("http://localhost:3001/note", { username, title, content, date: today.toLocaleDateString() })
       .then((result) => console.log(result),
       closeModal()
     )

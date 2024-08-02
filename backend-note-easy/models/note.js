@@ -1,6 +1,9 @@
 const mongoose = require('mongoose')
 
 const NoteSchema = new mongoose.Schema({
+    username : {
+        type: String,
+    },
     title : {
         type: String,      
     },

@@ -14,9 +14,9 @@ import { useRouter } from 'next/navigation'
 export default function Nav() {
   const router = useRouter()
 
-  const handleSignout = (e) => {
+  const handleSignout = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/api/signout')
+    await axios.post('http://localhost:3001/api/signout')
     .then(result => console.log(result),
     router.push('/')
   )

@@ -13,9 +13,9 @@ export default function RegisterPage() {
   const [password, setPassword] = useState();
   const router = useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/api/register', { email, username, password })
+    await axios.post('http://localhost:3001/api/register', { email, username, password })
     .then(result => console.log(result),
     router.push('/signin')
   )

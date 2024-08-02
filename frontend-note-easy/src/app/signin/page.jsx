@@ -12,9 +12,9 @@ export default function SigninPage() {
   const router = useRouter()
 
   axios.defaults.withCredentials = true;
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/api/signin', { email, password })
+    await axios.post('http://localhost:3001/api/signin', { email, password })
     .then(result => {
       console.log(result)
       if(result.data === 'User signed in') {

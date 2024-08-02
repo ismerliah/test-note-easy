@@ -22,10 +22,13 @@ app.use(cookieParser())
 mongoose.connect("mongodb://127.0.0.1:27017/user");
 
 app.post('/api/register', (req, res) => {
-    const passwordHash = bycrypt.hash(req.body.password, 10)
-    UserModel.create({...req.body, password: passwordHash})
-    .then(users => res.json(users))
-    .catch(err => res.json(err))
+    const {username, email, password} = req.body;
+    bycrypt.hash(password, 10)
+    .then(hash => {
+        UserModel.create({username, email, password: hash})
+        .then(users => res.json(users))
+        .catch(err => res.json(err))
+    })
 })
 
 app.post('/api/signin', (req ,res) => {
@@ -36,7 +39,7 @@ app.post('/api/signin', (req ,res) => {
         if (user) {
             bycrypt.compare(password, user.password, (err, response) => {
                 if(response) {
-                    const token = jwt.sign({ email : user.email }, 'secret', { expiresIn: '1h' }) 
+                    const token = jwt.sign({ email : user.email, username : user.username }, 'secret', { expiresIn: '1h' }) 
                     res.cookie('token', token)
                     return res.json("User signed in")
                 } else {
@@ -48,6 +51,21 @@ app.post('/api/signin', (req ,res) => {
         }
 
     })
+})
+
+app.get('/api/user', (req, res) => {
+    const token = req.cookies['token']
+    if(token) {
+        jwt.verify(token, 'secret', (err, user) => {  
+            if(err) {
+                return res.json("User not authenticated")
+            }
+            return res.json(user)
+        })
+    } 
+    else {
+        return res.json("User not authenticated")
+    }
 })
 
 app.post('/api/signout', (req, res) => {
