@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Disclosure,
   Menu,
@@ -6,8 +8,21 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
+import { useRouter } from 'next/navigation'
 
 export default function Nav() {
+  const router = useRouter()
+
+  const handleSignout = (e) => {
+    e.preventDefault();
+    axios.post('http://localhost:3001/api/signout')
+    .then(result => console.log(result),
+    router.push('/')
+  )
+    .catch(err => console.log(err))
+  }
+
   return (
     <Disclosure as="nav" className="bg-slate-100">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -40,7 +55,8 @@ export default function Nav() {
 
                 <MenuItem>
                   <a
-                    href="#"
+                    onClick={handleSignout}
+                    //href="/signout"
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
                     Sign out

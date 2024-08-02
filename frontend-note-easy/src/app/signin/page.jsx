@@ -13,11 +13,11 @@ export default function SigninPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/signin', { email, password })
+    axios.post('http://localhost:3001/api/signin', { email, password })
     .then(result => {
       console.log(result)
-      if(result.data === "Success") {
-        router.push('/welcome')
+      if(result) {
+        router.push('/home')
     }
   })
     .catch(err => console.log(err))
