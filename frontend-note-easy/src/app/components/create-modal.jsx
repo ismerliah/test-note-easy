@@ -3,17 +3,17 @@ import { Description, Dialog, DialogPanel, DialogTitle, Transition, TransitionCh
 import { Fragment, useState } from "react";
 import axios from "axios";
 
-function Modal({ isOpen, closeModal }) {
+function CreateModal({ isOpen, closeModal }) {
+  const [username, setUsername] = useState();
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
-  const [username, setUsername] = useState();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/user");
+        const response = await axios.get("http://localhost:3001/api/user", { withCredentials: true });
         setUsername(response.data.username);
         
       } catch (error) {
@@ -88,10 +88,6 @@ function Modal({ isOpen, closeModal }) {
                 >
                   Add new note
                 </DialogTitle>
-                {/* for test */}
-                <Description>
-                  {username}
-                </Description>
 
                 <form
                   className="mt-6 space-y-6"
@@ -158,4 +154,4 @@ function Modal({ isOpen, closeModal }) {
   )
 }
 
-export default Modal
+export default CreateModal

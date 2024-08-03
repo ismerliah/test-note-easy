@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Nav from "../components/nav";
-import Modal from "../components/modal";
+import CreateModal from "../components/create-modal";
 import axios from "axios";
 
 export default function HomePage() {
@@ -31,7 +31,7 @@ export default function HomePage() {
 
 
   return (
-    <div className="bg-slate-100 h-full">
+    <div className="bg-slate-100 h-screen">
       <Nav />
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-10 justify-end">
@@ -72,7 +72,7 @@ export default function HomePage() {
           ))
         }
       </div>
-      <Modal isOpen={isOpen} closeModal={closeModal} />
+      <CreateModal isOpen={isOpen} closeModal={closeModal} />
     </div>
   );
 }

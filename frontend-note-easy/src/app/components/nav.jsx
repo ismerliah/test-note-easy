@@ -10,9 +10,36 @@ import {
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useRouter } from 'next/navigation'
+import ProfileModal from "./profile-model";
+import { useEffect, useState } from "react";
 
 export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState();
   const router = useRouter()
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/user", { withCredentials: true });
+        if (response.data.username) {
+          setUsername(response.data.username);
+        } else {
+          console.error('Username not found in response');
+        }        
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, []);
 
   const handleSignout = async (e) => {
     e.preventDefault();
@@ -44,12 +71,19 @@ export default function Nav() {
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition"
               >
+                <MenuItem  as="div" className="border-b-2 border-A91D3A">
+                  <a
+                    className="0block px-4 py-3 text-lg font-bold text-C75B7A data-[focus]:bg-gray-100"
+                  >
+                    Hello, {username}
+                  </a>
+                </MenuItem>
                 <MenuItem>
                   <a
-                    href="#"
+                    onClick={openModal}
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
-                    Your Profile
+                    Profile
                   </a>
                 </MenuItem>
 
@@ -66,6 +100,7 @@ export default function Nav() {
           </div>
         </div>
       </div>
+      <ProfileModal isOpen={isOpen} closeModal={closeModal} />
     </Disclosure>
   );
 }

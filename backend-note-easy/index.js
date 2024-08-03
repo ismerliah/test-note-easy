@@ -19,7 +19,10 @@ app.use(cors({
 
 app.use(cookieParser())
 
-mongoose.connect("mongodb://127.0.0.1:27017/user");
+mongoose.connect("mongodb://127.0.0.1:27017/user", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 app.post('/api/register', (req, res) => {
     const {username, email, password} = req.body;
@@ -32,15 +35,20 @@ app.post('/api/register', (req, res) => {
 })
 
 app.post('/api/signin', (req ,res) => {
-    const { email, password } = req.body
+    const { _id, email, password } = req.body
 
-    UserModel.findOne({ email : email})
+    UserModel.findOne({ email : email })
     .then(user => {
         if (user) {
             bycrypt.compare(password, user.password, (err, response) => {
                 if(response) {
-                    const token = jwt.sign({ email : user.email, username : user.username }, 'secret', { expiresIn: '1h' }) 
-                    res.cookie('token', token)
+                    const token = jwt.sign({ _id: user._id, email : user.email, username : user.username }, 'secret', { expiresIn: '1d' }) 
+                    res.cookie('token', token, {
+                        httpOnly: true,
+                        secure: false, // Set to true in production
+                        sameSite: 'lax', // Change to 'none' in production if using cross-site cookies
+                        maxAge: 3600000 // 1 hour in milliseconds
+                      });
                     return res.json("User signed in")
                 } else {
                     return res.json("Email or password is incorrect")
@@ -67,6 +75,29 @@ app.get('/api/user', (req, res) => {
         return res.json("User not authenticated")
     }
 })
+
+app.put('/api/user', async (req, res) => {
+    const { id, username, email } = req.body;
+    try {
+        const user = await UserModel.findByIdAndUpdate(id, { username, email }, { new: true });
+        if (!user) {
+            return res.status(404).json("User not found");
+        }
+
+        // Generate a new token with the updated user information
+        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username }, 'secret', { expiresIn: '1d' });
+        res.cookie('token', token, {
+            httpOnly: true,
+            secure: false, // Set to true in production
+            sameSite: 'lax', // Change to 'none' in production if using cross-site cookies
+            maxAge: 3600000 // 1 hour in milliseconds
+        });
+
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: 'Error updating user' });
+    }
+});
 
 app.post('/api/signout', (req, res) => {
     res.clearCookie('token')
