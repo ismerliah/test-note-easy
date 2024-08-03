@@ -5,10 +5,6 @@ const CategorySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    notes: {
-        type: Array,
-        default: []
-    }
 })
 
 const CategoryModel = mongoose.model('categories', CategorySchema)

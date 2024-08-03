@@ -52,7 +52,7 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
         username,
         title,
         content,
-        categoryNote,
+        category: categoryNote,
         date: today.toLocaleDateString(),
         time: today.toLocaleTimeString(),
       })
@@ -170,17 +170,17 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
 
                       <div className="mt-2 ">
                         <select
-                      value={categories.name}
-                      onChange={(e) => setCategoryNote(e.target.value)}
-                      className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md"
-                    >
-                      <option value="">Select Category</option>
-                      {categories.map((cat) => (
-                        <option key={cat._id} value={cat._id}>
-                          {cat.name}
-                        </option>
-                      ))}
-                    </select>
+                          value={categories.name}
+                          onChange={(e) => setCategoryNote(e.target.value)}
+                          className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md"
+                        >
+                          <option value="">Select Category</option>
+                          {categories.map((cat) => (
+                            <option key={cat._id} value={cat.name}>
+                              {cat.name}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                     </div>
 

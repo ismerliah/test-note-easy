@@ -43,7 +43,7 @@ app.post('/api/signin', (req ,res) => {
         if (user) {
             bycrypt.compare(password, user.password, (err, response) => {
                 if(response) {
-                    const token = jwt.sign({ _id: user._id, email : user.email, username : user.username }, 'secret', { expiresIn: '1d' }) 
+                    const token = jwt.sign({ _id: user._id, email : user.email, username : user.username }, 'secret', { expiresIn: '1hr' }) 
                     res.cookie('token', token, {
                         httpOnly: true,
                         secure: false, // Set to true in production
@@ -86,7 +86,7 @@ app.put('/api/user', async (req, res) => {
         }
 
         // Generate a new token with the updated user information
-        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username }, 'secret', { expiresIn: '1d' });
+        const token = jwt.sign({ _id: user._id, email: user.email, username: user.username }, 'secret', { expiresIn: '1hr' });
         res.cookie('token', token, {
             httpOnly: true,
             secure: false, // Set to true in production
@@ -101,8 +101,8 @@ app.put('/api/user', async (req, res) => {
 });
 
 app.post('/api/signout', (req, res) => {
-    res.clearCookie('token')
-    return res.json("User signed out")
+    res.clearCookie('token');
+    return res.json("User signed out");
 })
 
 app.post('/api/create-notes', (req, res) => {
@@ -129,6 +129,8 @@ app.get('/api/getcategories', (req, res) => {
     .then(categories => res.json(categories))
     .catch(err => res.json(err))
 })
+
+app.get('/api/')
 
 app.listen(3001, () => {
     console.log('Server is running...')
