@@ -77,7 +77,7 @@ app.get('/api/user', (req, res) => {
     }
 })
 
-app.put('/api/user', async (req, res) => {
+app.put('/api/edit-user', async (req, res) => {
     const { id, username, email } = req.body;
     try {
         const user = await UserModel.findByIdAndUpdate(id, { username, email }, { new: true });
@@ -117,6 +117,30 @@ app.get('/api/getnotes', (req, res) => {
     .catch(err => res.json(err))
 })
 
+app.get('/api/getnotes/:id', (req, res) => {
+    NoteModel.findById(req.params.id)
+    .then(notes => res.json(notes))
+    .catch(err => res.json(err))
+})
+
+app.put('/api/edit-notes/:id', (req, res) => {
+    NoteModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .then(updatedNote => {
+        if (!updatedNote) {
+          return res.status(404).send({
+            message: `Note with id ${req.params.id} not found`
+          });
+        }
+        res.send(updatedNote);
+      })
+      .catch(error => {
+        res.status(500).send({
+          message: `Error updating note with id ${req.params.id}`,
+          error: error.message
+        });
+      });
+  });
+  
 app.post('/api/category', (req, res) => {
     const { name, notes } = req.body;
     CategoryModel.create({ name, notes })

@@ -5,13 +5,16 @@ import Nav from "../components/nav";
 import CreateModal from "../components/create-modal";
 import CategoryModal from "../components/category-modal";
 import axios from "axios";
+import EditModal from "../components/edit-modal";
 
 export default function HomePage() {
   const [isCreateOpen, setisCreateOpen] = useState(false);
   const [isCategoryOpen, setisCategoryOpen] = useState(false);
+  const [isEditOpen, setisEditOpen] = useState(false);
   const [notes, setNotes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
 
   function closeCreateModal() {
     setisCreateOpen(false);
@@ -27,6 +30,16 @@ export default function HomePage() {
 
   function openCategoryModal() {
     setisCategoryOpen(true);
+    setSelectedNoteId(null);
+  }
+
+  function closeEditModal() {
+    setisEditOpen(false);
+  }
+
+  function openEditModal(noteId) {
+    setSelectedNoteId(noteId);
+    setisEditOpen(true);
   }
 
   useEffect(() => {
@@ -54,9 +67,10 @@ export default function HomePage() {
     fetchCategory();
   }, []);
 
-  const filteredNotes = selectedCategory === "All" 
-    ? notes 
-    : notes.filter(note => note.category === selectedCategory);
+  const filteredNotes =
+    selectedCategory === "All"
+      ? notes
+      : notes.filter((note) => note.category === selectedCategory);
 
   return (
     <div className="bg-slate-100 min-h-screen">
@@ -123,20 +137,41 @@ export default function HomePage() {
               key={note._id}
               className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-6 flex flex-col justify-between gap-3"
             >
+              <div className="flex items-center justify-end">
+                <button className="text-sm text-003285 hover:text-A91D3A"
+                //onClick={}
+                >
+                  Edit History
+                </button>
+              </div>
+              <div className="relative flex h-10 justify-start gap-2 items-center">
+                <button className="bg-003285 border-003285 border border-spacing-1 py-1 px-3 h-8 rounded-3xl items-center justify-center">
+                  <p className="text-white text-sm font-bold">{note.category}</p>
+                </button>
+              </div>
               <div className="text-gray-900 font-bold text-xl mb-2">
                 {note.title}
               </div>
               <div className="text-sm">
-                <p className="text-gray-900 leading-none">by: {note.username}</p>
+                <p className="text-gray-900 leading-none">
+                  by: {note.username}
+                </p>
               </div>
-              <p className="text-gray-700 text-base mb-2">{note.content}</p>
+              <p className="text-gray-500 text-base mb-2">{note.content}</p>
               <div className="flex items-center justify-end mt-auto">
                 <div className="text-sm text-right">
-                  <p className="text-gray-600">{note.date}</p>
-                  <p className="text-gray-600">{note.time}</p>
-                  <p className="text-gray-600">{note.category}</p>
+                  <p className="text-gray-900">Date : {note.date}</p>
+                  <p className="text-gray-900">Time : {note.time}</p>
                 </div>
               </div>
+              <div className="text-left">
+                  <button 
+                  className="bg-C75B7A hover:bg-A91D3A text-EEEEEE border border-spacing-1 py-1 px-3 h-8 rounded items-center justify-center"
+                  onClick={() => openEditModal(note._id)}
+                  >
+                      Edit Note
+                  </button>
+                </div>
             </div>
           ))}
         </div>
@@ -148,6 +183,11 @@ export default function HomePage() {
       <CategoryModal
         isCategoryOpen={isCategoryOpen}
         closeCategoryModal={closeCategoryModal}
+      />
+      <EditModal
+        isEditOpen={isEditOpen}
+        closeEditModal={closeEditModal}
+        noteId={selectedNoteId}
       />
     </div>
   );
