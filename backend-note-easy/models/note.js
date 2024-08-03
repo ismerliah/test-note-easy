@@ -10,8 +10,14 @@ const NoteSchema = new mongoose.Schema({
     content : {
         type: String,        
     },
+    category : {
+        type: String,
+    },
     date : {
         type: String, 
+    },
+    time : {
+        type: String,
     }
 })
 

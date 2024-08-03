@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 
 const UserModel = require('./models/user')
 const NoteModel = require('./models/note')
+const CategoryModel = require('./models/note-category')
 
 const app = express()
 app.use(express.json())
@@ -113,6 +114,19 @@ app.post('/api/create-notes', (req, res) => {
 app.get('/api/getnotes', (req, res) => {
     NoteModel.find()
     .then(notes => res.json(notes))
+    .catch(err => res.json(err))
+})
+
+app.post('/api/category', (req, res) => {
+    const { name, notes } = req.body;
+    CategoryModel.create({ name, notes })
+    .then(categories => res.json(categories))
+    .catch(err => res.json(err))
+})
+
+app.get('/api/getcategories', (req, res) => {
+    CategoryModel.find()
+    .then(categories => res.json(categories))
     .catch(err => res.json(err))
 })
 
