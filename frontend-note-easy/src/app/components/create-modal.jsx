@@ -25,7 +25,7 @@ function CreateModal({ isOpen, closeModal }) {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    await axios.post("http://localhost:3001/api/create-notes", { username, title, content, date: today.toLocaleDateString() })
+    await axios.post("http://localhost:3001/api/create-notes", { username, title, content, date: today.toLocaleDateString(), time: today.toLocaleTimeString() })
       .then((result) => console.log(result),
       closeModal()
     )

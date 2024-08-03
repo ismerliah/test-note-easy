@@ -29,9 +29,8 @@ export default function HomePage() {
     fetchNotes();
   }, []);
 
-
   return (
-    <div className="bg-slate-100 h-screen">
+    <div className="bg-slate-100">
       <Nav />
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-10 justify-end">
@@ -57,20 +56,27 @@ export default function HomePage() {
             <span>Add new note</span>
           </button>
         </div>
-        {
-          notes.map((note) => (
-            <div
-              key={note._id}
-              className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-6 mt-4"
-            >
-              <h2 className="text-2xl font-bold">{note.title}</h2>
-              <p className="text-gray-500">{note.username}</p>
-              <p className="text-gray-500">{note.content}</p>
-              <p className="text-gray-500">{note.date}</p>
-              
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        {notes.map((note) => (
+          <div
+            key={note._id}
+            className=" bg-white rounded-lg border-y-indigo-950 shadow-lg p-6 mt-4 mb-5 flex flex-col justify-between"
+          >
+            <div className="text-gray-900 font-bold text-xl mb-2">
+              {note.title}
             </div>
-          ))
-        }
+            <p className="text-gray-700 text-base mb-2">{note.content}</p>
+            <div className="flex items-center justify-end mt-auto">
+              <div className="text-sm text-right">
+                <p className="text-gray-900 leading-none">{note.username}</p>
+                <p className="text-gray-600">{note.date}</p>
+                <p className="text-gray-600">{note.time}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+        </div>
       </div>
       <CreateModal isOpen={isOpen} closeModal={closeModal} />
     </div>
