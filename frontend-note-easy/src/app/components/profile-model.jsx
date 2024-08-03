@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import axios from "axios";
 
-function ProfileModal({ isOpen, closeModal }) {
+function ProfileModal({ isCreateOpen, closeCreateModal }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [id, setID] = useState("");
@@ -31,15 +31,15 @@ function ProfileModal({ isOpen, closeModal }) {
         try {
             const result = await axios.put("http://localhost:3001/api/user", { id, username, email }, { withCredentials: true });
             console.log(result);
-            closeModal();
+            closeCreateModal();
         } catch (err) {
             console.error(err);
         }
     };
 
     return (
-        <Transition appear show={isOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Transition appear show={isCreateOpen} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={closeCreateModal}>
                 <TransitionChild
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -66,7 +66,7 @@ function ProfileModal({ isOpen, closeModal }) {
                             <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 <button
                                     className="absolute top-4 right-4 text-gray-950"
-                                    onClick={closeModal}
+                                    onClick={closeCreateModal}
                                 >
                                     <svg
                                         className="w-6 h-6 text-gray-800 dark:text-white"

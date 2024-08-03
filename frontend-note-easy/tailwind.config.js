@@ -18,6 +18,7 @@ module.exports = {
         'EEEEEE': '#EEEEEE', //white
         'C75B7A': '#C75B7A', //pink
         '151515': '#151515', //black
+        'FFA823': '#FFA823', //orange
       },
 
       fontFamily: {

@@ -14,15 +14,15 @@ import ProfileModal from "./profile-model";
 import { useEffect, useState } from "react";
 
 export default function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isCreateOpen, setisCreateOpen] = useState(false);
   const [username, setUsername] = useState();
   const router = useRouter()
-  function closeModal() {
-    setIsOpen(false);
+  function closeCreateModal() {
+    setisCreateOpen(false);
   }
 
-  function openModal() {
-    setIsOpen(true);
+  function openCreateModal() {
+    setisCreateOpen(true);
   }
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function Nav() {
                 </MenuItem>
                 <MenuItem>
                   <a
-                    onClick={openModal}
+                    onClick={openCreateModal}
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
                     Profile
@@ -100,7 +100,7 @@ export default function Nav() {
           </div>
         </div>
       </div>
-      <ProfileModal isOpen={isOpen} closeModal={closeModal} />
+      <ProfileModal isCreateOpen={isCreateOpen} closeCreateModal={closeCreateModal} />
     </Disclosure>
   );
 }
