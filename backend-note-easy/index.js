@@ -73,8 +73,14 @@ app.post('/api/signout', (req, res) => {
     return res.json("User signed out")
 })
 
-app.post('/note', (req, res) => {
+app.post('/api/create-notes', (req, res) => {
     NoteModel.create(req.body)
+    .then(notes => res.json(notes))
+    .catch(err => res.json(err))
+})
+
+app.get('/api/getnotes', (req, res) => {
+    NoteModel.find()
     .then(notes => res.json(notes))
     .catch(err => res.json(err))
 })

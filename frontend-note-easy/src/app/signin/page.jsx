@@ -26,7 +26,7 @@ export default function SigninPage() {
   return (
     <div className="bg-slate-100">
       <Appbar/>
-      <div className="flex h-screen flex-1 flex-col justify-center items-center">
+      <div className="flex h-screen flex-col justify-center items-center">
       
       <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">

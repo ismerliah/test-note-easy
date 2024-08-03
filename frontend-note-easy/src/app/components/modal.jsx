@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
+import { Description, Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import axios from "axios";
 
@@ -25,7 +25,7 @@ function Modal({ isOpen, closeModal }) {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    await axios.post("http://localhost:3001/note", { username, title, content, date: today.toLocaleDateString() })
+    await axios.post("http://localhost:3001/api/create-notes", { username, title, content, date: today.toLocaleDateString() })
       .then((result) => console.log(result),
       closeModal()
     )
@@ -88,12 +88,17 @@ function Modal({ isOpen, closeModal }) {
                 >
                   Add new note
                 </DialogTitle>
+                {/* for test */}
+                <Description>
+                  {username}
+                </Description>
 
                 <form
                   className="mt-6 space-y-6"
                   onSubmit={handleSubmit}
                   method="POST"
                 >
+                  
                   <div>
                     <label
                       htmlFor="title"
