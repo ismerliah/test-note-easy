@@ -14,7 +14,7 @@ export default function SigninPage() {
   axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:3001/api/signin', { email, password })
+    await axios.post('https://test-note-easy-be.vercel.app/api/signin', { email, password })
     .then(result => {
       //console.log(result)
       if(result.data === 'User signed in') {

@@ -16,7 +16,7 @@ function HistoryModal({ isHistoryOpen, closeHistoryModal, noteId }) {
       const fetchHistory = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:3001/api/getnotes/${noteId}`
+            `https://test-note-easy-be.vercel.app/api/getnotes/${noteId}`
           );
           const note = response.data;
           setEditHistory(note.editHistory);

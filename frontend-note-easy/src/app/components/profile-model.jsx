@@ -16,7 +16,7 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/user", {
+        const response = await axios.get("https://test-note-easy-be.vercel.app/api/user", {
           withCredentials: true,
         });
         if (response.data) {
@@ -40,7 +40,7 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
     e.preventDefault();
     try {
       const result = await axios.put(
-        "http://localhost:3001/api/edit-user",
+        "https://test-note-easy-be.vercel.app/api/edit-user",
         { id, username, email },
         { withCredentials: true }
       );

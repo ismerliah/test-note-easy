@@ -57,7 +57,7 @@ export default function HomePage() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/getnotes");
+        const response = await axios.get("https://test-note-easy-be.vercel.app/api/getnotes");
         setNotes(response.data);
       } catch (error) {
         console.error(error);
@@ -68,7 +68,7 @@ export default function HomePage() {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/api/getcategories",
+          "https://test-note-easy-be.vercel.app/api/getcategories",
           { withCredentials: true }
         );
         setCategories(response.data);
