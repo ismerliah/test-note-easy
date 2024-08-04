@@ -24,13 +24,13 @@ export default function SigninPage() {
     .catch(err => console.log(err))
   }
   return (
-    <div className="bg-slate-100">
+    <div className="bg-slate-100 h-screen ">
       <Appbar/>
-      <div className="flex h-screen flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
       
-      <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
+      <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg mt-10 p-12 md:w-2/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-5 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in
           </h2>
         </div>

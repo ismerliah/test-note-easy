@@ -1,25 +1,20 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const NoteSchema = new mongoose.Schema({
-    username : {
-        type: String,
-    },
-    title : {
-        type: String,      
-    },
-    content : {
-        type: String,        
-    },
-    category : {
-        type: String,
-    },
-    date : {
-        type: String, 
-    },
-    time : {
-        type: String,
-    }
-})
+const editHistorySchema = new mongoose.Schema({
+  updatedAt: { type: Date, default: Date.now },
+  changes: { type: Map, of: String },
+});
 
-const NoteModel = mongoose.model('notes', NoteSchema)
-module.exports = NoteModel
+const noteSchema = new mongoose.Schema({
+  title: String,
+  content: String,
+  category: String,
+  username: String,
+  date: String,
+  time: String,
+  editHistory: [editHistorySchema],
+});
+
+const NoteModel = mongoose.model('notes', noteSchema);
+
+module.exports = NoteModel;

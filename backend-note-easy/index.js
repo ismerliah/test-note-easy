@@ -123,23 +123,36 @@ app.get('/api/getnotes/:id', (req, res) => {
     .catch(err => res.json(err))
 })
 
-app.put('/api/edit-notes/:id', (req, res) => {
-    NoteModel.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(updatedNote => {
-        if (!updatedNote) {
-          return res.status(404).send({
-            message: `Note with id ${req.params.id} not found`
-          });
-        }
-        res.send(updatedNote);
-      })
-      .catch(error => {
-        res.status(500).send({
-          message: `Error updating note with id ${req.params.id}`,
-          error: error.message
+app.put('/api/edit-notes/:id', async (req, res) => {
+    try {
+      const note = await NoteModel.findById(req.params.id);
+      if (!note) {
+        return res.status(404).send({
+          message: `Note with id ${req.params.id} not found`,
         });
+      }
+  
+      const changes = {};
+      for (const key in req.body) {
+        if (note[key] !== req.body[key]) {
+          changes[key] = note[key];
+        }
+      }
+  
+      note.set(req.body);
+      note.editHistory.push({ changes });
+      const updatedNote = await note.save();
+  
+      res.send(updatedNote);
+    } catch (error) {
+      res.status(500).send({
+        message: `Error updating note with id ${req.params.id}`,
+        error: error.message,
       });
+    }
   });
+  
+  
   
 app.post('/api/category', (req, res) => {
     const { name, notes } = req.body;

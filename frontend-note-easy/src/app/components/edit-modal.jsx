@@ -13,6 +13,7 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  const [editHistory, setEditHistory] = useState([]);
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
 
@@ -25,6 +26,7 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
           setTitle(note.title);
           setContent(note.content);
           setCategory(note.category);
+          setEditHistory(note.editHistory);
         } catch (error) {
           console.error(error);
         }

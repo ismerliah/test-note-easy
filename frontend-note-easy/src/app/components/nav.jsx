@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation'
 import ProfileModal from "./profile-model";
 import { useEffect, useState } from "react";
 
+
 export default function Nav() {
   const [isProfileOpen, setisProfileOpen] = useState(false);
   const [username, setUsername] = useState();
@@ -33,9 +34,12 @@ export default function Nav() {
           setUsername(response.data.username);
         } else {
           console.error('Username not found in response');
+          router.push('/');
         }        
       } catch (error) {
         console.error(error);
+        
+
       }
     };
     fetchUser();

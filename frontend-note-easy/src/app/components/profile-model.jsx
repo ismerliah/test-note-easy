@@ -26,6 +26,8 @@ function ProfileModal({ isCreateOpen, closeCreateModal }) {
           console.log(response.data);
         } else {
           console.error("User not found");
+          router.push('/');
+
         }
       } catch (error) {
         console.error(error);

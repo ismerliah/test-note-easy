@@ -6,11 +6,14 @@ import CreateModal from "../components/create-modal";
 import CategoryModal from "../components/category-modal";
 import axios from "axios";
 import EditModal from "../components/edit-modal";
+import HistoryModal from "../components/history-modal";
 
 export default function HomePage() {
   const [isCreateOpen, setisCreateOpen] = useState(false);
   const [isCategoryOpen, setisCategoryOpen] = useState(false);
   const [isEditOpen, setisEditOpen] = useState(false);
+  const [isHistoryOpen, setisHistoryOpen] = useState(false);
+
   const [notes, setNotes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -40,6 +43,15 @@ export default function HomePage() {
   function openEditModal(noteId) {
     setSelectedNoteId(noteId);
     setisEditOpen(true);
+  }
+
+  function closeHistoryModal() {
+    setisHistoryOpen(false);
+  }
+
+  function openHistoryModal(noteId) {
+    setSelectedNoteId(noteId);
+    setisHistoryOpen(true);
   }
 
   useEffect(() => {
@@ -139,9 +151,9 @@ export default function HomePage() {
             >
               <div className="flex items-center justify-end">
                 <button className="text-sm text-003285 hover:text-A91D3A"
-                //onClick={}
+                onClick={() => openHistoryModal(note._id)}
                 >
-                  Edit History
+                  Show Edit History
                 </button>
               </div>
               <div className="relative flex h-10 justify-start gap-2 items-center">
@@ -187,6 +199,11 @@ export default function HomePage() {
       <EditModal
         isEditOpen={isEditOpen}
         closeEditModal={closeEditModal}
+        noteId={selectedNoteId}
+      />
+      <HistoryModal
+        isHistoryOpen={isHistoryOpen}
+        closeHistoryModal={closeHistoryModal}
         noteId={selectedNoteId}
       />
     </div>
