@@ -9,7 +9,7 @@ import {
 } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation"
 import ProfileModal from "./profile-model";
 import { useEffect, useState } from "react";
 
