@@ -16,8 +16,9 @@ export default function RegisterPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post('http://localhost:3001/api/register', { email, username, password })
-    .then(result => console.log(result),
-    router.push('/signin')
+    .then(result => 
+      //console.log(result),
+      router.push('/signin')
   )
     .catch(err => console.log(err))
   }

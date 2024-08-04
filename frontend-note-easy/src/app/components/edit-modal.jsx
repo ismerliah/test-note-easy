@@ -51,7 +51,7 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
     e.preventDefault();
     try {
       const result = await axios.put(`http://localhost:3001/api/edit-notes/${noteId}`, { title, content, category, date: today.toLocaleDateString(), time: today.toLocaleTimeString(), }, { withCredentials: true });
-      console.log(result);
+      //console.log(result);
       closeEditModal();
     } catch (err) {
       console.error(err);

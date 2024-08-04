@@ -8,7 +8,7 @@ import {
 } from "@headlessui/react";
 import axios from "axios";
 
-function ProfileModal({ isCreateOpen, closeCreateModal }) {
+function ProfileModal({ isProfileOpen, closeProfileModal }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [id, setID] = useState("");
@@ -23,7 +23,7 @@ function ProfileModal({ isCreateOpen, closeCreateModal }) {
           setEmail(response.data.email);
           setUsername(response.data.username);
           setID(response.data._id);
-          console.log(response.data);
+          //console.log(response.data);
         } else {
           console.error("User not found");
           router.push('/');
@@ -40,20 +40,20 @@ function ProfileModal({ isCreateOpen, closeCreateModal }) {
     e.preventDefault();
     try {
       const result = await axios.put(
-        "http://localhost:3001/api/user",
+        "http://localhost:3001/api/edit-user",
         { id, username, email },
         { withCredentials: true }
       );
-      console.log(result);
-      closeCreateModal();
+      //console.log(result);
+      closeProfileModal();
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <Transition appear show={isCreateOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeCreateModal}>
+    <Transition appear show={isProfileOpen} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={closeProfileModal}>
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-300"
@@ -80,7 +80,7 @@ function ProfileModal({ isCreateOpen, closeCreateModal }) {
               <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <button
                   className="absolute top-4 right-4 text-gray-950"
-                  onClick={closeCreateModal}
+                  onClick={closeProfileModal}
                 >
                   <svg
                     className="w-6 h-6 text-gray-800 dark:text-white"

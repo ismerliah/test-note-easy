@@ -48,8 +48,9 @@ export default function Nav() {
   const handleSignout = async (e) => {
     e.preventDefault();
     await axios.post('http://localhost:3001/api/signout')
-    .then(result => console.log(result),
-    router.push('/')
+    .then(result => 
+      //console.log(result),
+      router.push('/')
   )
     .catch(err => console.log(err))
   }

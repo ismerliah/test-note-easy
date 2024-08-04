@@ -9,8 +9,9 @@ function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     await axios.post("http://localhost:3001/api/category", { name: category })
-      .then((result) => console.log(result),
-      closeCategoryModal()
+      .then((result) => 
+        //console.log(result),
+        closeCategoryModal()
     )
       .catch((err) => console.log(err));
   };

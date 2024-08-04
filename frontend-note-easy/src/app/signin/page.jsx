@@ -16,7 +16,7 @@ export default function SigninPage() {
     e.preventDefault();
     await axios.post('http://localhost:3001/api/signin', { email, password })
     .then(result => {
-      console.log(result)
+      //console.log(result)
       if(result.data === 'User signed in') {
         router.push('/home')
     }

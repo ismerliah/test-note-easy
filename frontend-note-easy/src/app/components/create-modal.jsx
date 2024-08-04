@@ -57,7 +57,9 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
         date: today.toLocaleDateString(),
         time: today.toLocaleTimeString(),
       })
-      .then((result) => console.log(result), closeCreateModal())
+      .then((result) => 
+        //console.log(result), 
+      closeCreateModal())
       .catch((err) => console.log(err));
   };
 
