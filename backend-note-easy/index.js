@@ -13,14 +13,14 @@ const CategoryModel = require('./models/note-category')
 const app = express()
 app.use(express.json())
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    //origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }))
 
 app.use(cookieParser())
 
-mongoose.connect("mongodb://127.0.0.1:27017/user", {
+mongoose.connect("mongodb+srv://6410110649:Q5LmPWlqFii2B8HJ@cluster0.y0dewmc.mongodb.net/user", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -153,8 +153,6 @@ app.put('/api/edit-notes/:id', async (req, res) => {
     }
   });
   
-  
-  
 app.post('/api/category', (req, res) => {
     const { name, notes } = req.body;
     CategoryModel.create({ name, notes })
@@ -167,8 +165,6 @@ app.get('/api/getcategories', (req, res) => {
     .then(categories => res.json(categories))
     .catch(err => res.json(err))
 })
-
-app.get('/api/')
 
 app.listen(3001, () => {
     console.log('Server is running...')
