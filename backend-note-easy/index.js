@@ -5,10 +5,9 @@ const bycrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 
-
-const UserModel = require('../models/user')
-const NoteModel = require('../models/note')
-const CategoryModel = require('../models/note-category')
+const UserModel = require('./models/user')
+const NoteModel = require('./models/note')
+const CategoryModel = require('./models/note-category')
 
 const app = express()
 app.use(express.json())
