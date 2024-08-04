@@ -14,6 +14,14 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
 app.use(cookieParser())
 
 mongoose.connect("mongodb+srv://6410110649:Q5LmPWlqFii2B8HJ@cluster0.y0dewmc.mongodb.net/user", {
@@ -162,6 +170,5 @@ app.get('/api/getcategories', (req, res) => {
     .catch(err => res.json(err))
 })
 
-app.listen(3001, () => {
-    console.log('Server is running...')
-})
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
