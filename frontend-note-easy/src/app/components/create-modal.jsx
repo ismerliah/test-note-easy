@@ -27,9 +27,7 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
         setUsername(response.data.username);
       } catch (error) {
         console.error(error);
-        router.push('/');
         
-
       }
     };
     fetchUser();
