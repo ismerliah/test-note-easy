@@ -12,7 +12,6 @@ const CategoryModel = require('./models/note-category')
 const app = express()
 app.use(express.json())
 
-const cors = require('cors');
 app.use(cors({
   origin: 'https://test-note-easy-fe.vercel.app'
 }));
