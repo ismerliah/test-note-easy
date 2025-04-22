@@ -29,7 +29,7 @@ export default function Nav() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("https://test-note-easy-be.vercel.app/api/user", { withCredentials: true });
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`, { withCredentials: true });
         if (response.data.username) {
           setUsername(response.data.username);
         } else {
@@ -47,7 +47,7 @@ export default function Nav() {
 
   const handleSignout = async (e) => {
     e.preventDefault();
-    await axios.post('https://test-note-easy-be.vercel.app/api/signout')
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/signout`)
     .then(result => 
       //console.log(result),
       router.push('/')

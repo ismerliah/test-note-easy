@@ -14,21 +14,22 @@ export default function SigninPage() {
   axios.defaults.withCredentials = true;
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('https://test-note-easy-be.vercel.app/api/signin', { email, password })
-    .then(result => {
-      //console.log(result)
-      if(result.data === 'User signed in') {
-        router.push('/home')
-    }
-  })
-    .catch(err => console.log(err))
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/signin`, { email, password })
+      .then((result) => {
+        //console.log(result)
+        if (result.data === "User signed in") {
+          router.push("/home");
+        }
+      })
+      .catch((err) => console.log(err));
   }
   return (
     <div className="bg-slate-100 h-screen ">
       <Appbar/>
       <div className="flex flex-col justify-center items-center">
       
-      <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg mt-10 p-12 md:w-2/5">
+      <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg mt-10 p-12 max-md:w-2/5">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in

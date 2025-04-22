@@ -21,9 +21,12 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("https://test-note-easy-be.vercel.app/api/user", {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/user`,
+          {
+            withCredentials: true,
+          }
+        );
         setUsername(response.data.username);
       } catch (error) {
         console.error(error);
@@ -35,7 +38,7 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "https://test-note-easy-be.vercel.app/api/getcategories",
+          `${process.env.NEXT_PUBLIC_API_URL}/getcategories`,
           { withCredentials: true }
         );
         setCategories(response.data);
@@ -49,7 +52,7 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post("https://test-note-easy-be.vercel.app/api/create-notes", {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/create-notes`, {
         username,
         title,
         content,

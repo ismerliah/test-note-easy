@@ -57,7 +57,9 @@ export default function HomePage() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const response = await axios.get("https://test-note-easy-be.vercel.app/api/getnotes");
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/getnotes`
+        );
         setNotes(response.data);
       } catch (error) {
         console.error(error);
@@ -68,7 +70,7 @@ export default function HomePage() {
     const fetchCategory = async () => {
       try {
         const response = await axios.get(
-          "https://test-note-easy-be.vercel.app/api/getcategories",
+          `${process.env.NEXT_PUBLIC_API_URL}/getcategories`,
           { withCredentials: true }
         );
         setCategories(response.data);
@@ -143,22 +145,25 @@ export default function HomePage() {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-4 gap-4 mt-4">
           {filteredNotes.map((note) => (
             <div
               key={note._id}
               className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-6 flex flex-col justify-between gap-3"
             >
               <div className="flex items-center justify-end">
-                <button className="text-sm text-003285 hover:text-A91D3A"
-                onClick={() => openHistoryModal(note._id)}
+                <button
+                  className="text-sm text-003285 hover:text-A91D3A"
+                  onClick={() => openHistoryModal(note._id)}
                 >
                   Show Edit History
                 </button>
               </div>
               <div className="relative flex h-10 justify-start gap-2 items-center">
                 <button className="bg-003285 border-003285 border border-spacing-1 py-1 px-3 h-8 rounded-3xl items-center justify-center">
-                  <p className="text-white text-sm font-bold">{note.category}</p>
+                  <p className="text-white text-sm font-bold">
+                    {note.category}
+                  </p>
                 </button>
               </div>
               <div className="text-gray-900 font-bold text-xl mb-2">
@@ -177,13 +182,13 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="text-left">
-                  <button 
+                <button
                   className="bg-C75B7A hover:bg-A91D3A text-EEEEEE border border-spacing-1 py-1 px-3 h-8 rounded items-center justify-center"
                   onClick={() => openEditModal(note._id)}
-                  >
-                      Edit Note
-                  </button>
-                </div>
+                >
+                  Edit Note
+                </button>
+              </div>
             </div>
           ))}
         </div>

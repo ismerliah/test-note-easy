@@ -21,7 +21,9 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
     if (noteId) {
       const fetchNote = async () => {
         try {
-          const response = await axios.get(`https://test-note-easy-be.vercel.app/api/getnotes/${noteId}`);
+          const response = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/getnotes/${noteId}`
+          );
           const note = response.data;
           setTitle(note.title);
           setContent(note.content);
@@ -38,7 +40,7 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("https://test-note-easy-be.vercel.app/api/getcategories");
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/getcategories`);
         setCategories(response.data);
       } catch (error) {
         console.error(error);
@@ -50,7 +52,17 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.put(`https://test-note-easy-be.vercel.app/api/edit-notes/${noteId}`, { title, content, category, date: today.toLocaleDateString(), time: today.toLocaleTimeString(), }, { withCredentials: true });
+      const result = await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/edit-notes/${noteId}`,
+        {
+          title,
+          content,
+          category,
+          date: today.toLocaleDateString(),
+          time: today.toLocaleTimeString(),
+        },
+        { withCredentials: true }
+      );
       //console.log(result);
       closeEditModal();
     } catch (err) {

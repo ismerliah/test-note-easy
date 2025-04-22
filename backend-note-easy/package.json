@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "dev:dev": "dotenv -e .env.dev -- node index.js",
+    "dev:uat": "dotenv -e .env.uat -- node index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,9 +16,13 @@
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
     "nodemon": "^3.1.4"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^8.0.0"
   }
 }

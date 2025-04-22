@@ -15,7 +15,7 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('https://test-note-easy-be.vercel.app/api/register', { email, username, password })
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/register`, { email, username, password })
     .then(result => 
       //console.log(result),
       router.push('/signin')
