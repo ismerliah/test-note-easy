@@ -7,7 +7,6 @@ export default function Appbar() {
         <div className="relative flex h-16  items-center">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <h1 className="font-agbalumo text-3xl text-A91D3A">
-              easy note
             </h1>
           </div>
         </div>

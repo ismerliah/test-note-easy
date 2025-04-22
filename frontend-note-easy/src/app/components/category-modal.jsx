@@ -8,7 +8,7 @@ function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    await axios.post("https://test-note-easy-be.vercel.app/api/category", { name: category })
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/category`, { name: category })
       .then((result) => 
         //console.log(result),
         closeCategoryModal()
