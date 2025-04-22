@@ -15,19 +15,19 @@ const CategoryModel = require('./models/note-category')
 const app = express()
 app.use(express.json())
 
-// app.use(cors({
-// //   origin: 'https://test-note-easy-fe.vercel.app'
-//     origin: 'http://localhost:3000',
-// }));
-// app.options('*', cors());
+app.use(cors({
+  origin: 'https://test-note-easy-fe.vercel.app'
+    // origin: 'http://localhost:3000',
+}));
+app.options('*', cors());
 
-app.use(
-  cors({
-    origin: process.env.ORIGIN,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: process.env.ORIGIN,
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
 
 app.use(cookieParser())
 
