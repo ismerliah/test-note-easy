@@ -146,7 +146,7 @@ export default function HomePage() {
                     <button
                       key={cat._id}
                       className="px-3 h-8 rounded-3xl items-center justify-center"
-                      style={{ backgroundColor: `#${cat.color}` }}
+                      style={{ backgroundColor: `${cat.color}` }}
                     >
                       <p className="text-black text-sm font-bold">
                         {note.category}
