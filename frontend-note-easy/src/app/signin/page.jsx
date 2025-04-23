@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import Appbar from "../components/AppBar";
+import AppBar from "../components/AppBar";
 
 export default function SigninPage() {
   const [email, setEmail] = useState();
@@ -26,7 +26,7 @@ export default function SigninPage() {
   };
   return (
     <div className="bg-slate-100 h-screen ">
-      <Appbar />
+      <AppBar />
       <div className="flex flex-col justify-center items-center">
         <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg mt-10 p-12 max-md:w-2/5">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
