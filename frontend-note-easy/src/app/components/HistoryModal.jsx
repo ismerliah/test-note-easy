@@ -7,6 +7,8 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import axios from "axios";
+import { IconButton } from "@mui/material";
+import { FiX } from "react-icons/fi";
 
 function HistoryModal({ isHistoryOpen, closeHistoryModal, noteId }) {
   const [editHistory, setEditHistory] = useState([]);
@@ -55,28 +57,11 @@ function HistoryModal({ isHistoryOpen, closeHistoryModal, noteId }) {
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <button
-                  className="absolute top-4 right-4 text-gray-950"
-                  onClick={closeHistoryModal}
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18 17.94 6M18 18 6.06 6"
-                    />
-                  </svg>
-                </button>
+                <div className="absolute top-4 right-4">
+                  <IconButton onClick={closeHistoryModal}>
+                    <FiX size={20} />
+                  </IconButton>
+                </div>
                 <DialogTitle
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
@@ -84,7 +69,6 @@ function HistoryModal({ isHistoryOpen, closeHistoryModal, noteId }) {
                   Show Edit History
                 </DialogTitle>
                 <div className="mt-6">
-                  
                   <div className="mt-4 space-y-4">
                     {editHistory.map((entry, index) => (
                       <div

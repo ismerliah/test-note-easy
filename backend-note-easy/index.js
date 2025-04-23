@@ -6,8 +6,6 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 require("dotenv").config();
 
-console.log(process.env);
-
 const UserModel = require('./models/user')
 const NoteModel = require('./models/note')
 const CategoryModel = require('./models/note-category')
@@ -15,15 +13,18 @@ const CategoryModel = require('./models/note-category')
 const app = express()
 app.use(express.json())
 
-app.use(cors({
-  origin: 'https://test-note-easy-fe.vercel.app'
-    // origin: 'http://localhost:3000',
-}));
+// PROD
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+);
 app.options('*', cors());
 
+// test
 // app.use(
 //   cors({
-//     origin: process.env.ORIGIN,
+//     origin: 'http://localhost:3000',
 //     methods: ["GET", "POST", "PUT", "DELETE"],
 //     credentials: true,
 //   })
@@ -125,8 +126,8 @@ app.post('/api/create-notes', (req, res) => {
 
 app.get('/api/getnotes', (req, res) => {
     NoteModel.find()
-    .then(notes => res.json(notes))
-    .catch(err => res.json(err))
+      .then((notes) => res.json(notes))
+      .catch((err) => res.json(err));
 })
 
 app.get('/api/getnotes/:id', (req, res) => {
@@ -165,17 +166,44 @@ app.put('/api/edit-notes/:id', async (req, res) => {
   });
   
 app.post('/api/category', (req, res) => {
-    const { name, notes } = req.body;
-    CategoryModel.create({ name, notes })
+    const { name, color, notes } = req.body;
+    CategoryModel.create({ name, color, notes })
     .then(categories => res.json(categories))
     .catch(err => res.json(err))
 })
 
 app.get('/api/getcategories', (req, res) => {
     CategoryModel.find()
-    .then(categories => res.json(categories))
-    .catch(err => res.json(err))
+      .then((categories) => res.json(categories))
+      .catch((err) => res.json(err));
 })
+
+app.get("/api/getcategories/:id", (req, res) => {
+  CategoryModel.findById(req.params.id)
+    .then((category) => res.json(category))
+    .catch((err) => res.json(err));
+});
+
+app.put("/api/edit-category/:id", async (req, res) => {
+  try {
+    const category = await CategoryModel.findById(req.params.id);
+    if (!category) {
+      return res.status(404).send({
+        message: `Category with id ${req.params.id} not found`,
+      });
+    }
+
+    category.set(req.body);
+    const updatedCategory = await category.save();
+    console.log(updatedCategory);
+    res.send(updatedCategory);
+  } catch (error) {
+    res.status(500).send({
+      message: `Error updating note with id ${req.params.id}`,
+      error: error.message,
+    });
+  }
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

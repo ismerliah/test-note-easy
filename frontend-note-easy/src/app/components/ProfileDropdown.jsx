@@ -10,12 +10,14 @@ import {
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useRouter } from "next/navigation"
-import ProfileModal from "./profile-model";
+import ProfileModal from "./ProfileModal";
 import { useEffect, useState } from "react";
+import AllCategory from "./AllCategory";
 
 
-export default function Nav() {
+export default function ProfileDropdown() {
   const [isProfileOpen, setisProfileOpen] = useState(false);
+  const [isAllCategoryOpen, setisAllCategoryOpen] = useState(false);
   const [username, setUsername] = useState();
   const router = useRouter()
   function closeProfileModal() {
@@ -24,6 +26,14 @@ export default function Nav() {
 
   function openProfileModal() {
     setisProfileOpen(true);
+  }
+
+  function closeAllCategoryModal() {
+    setisAllCategoryOpen(false);
+  }
+
+  function openAllCategoryModal() {
+    setisAllCategoryOpen(true);
   }
 
   useEffect(() => {
@@ -60,9 +70,7 @@ export default function Nav() {
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-            <h1 className="font-agbalumo text-3xl text-A91D3A">
-              easy note
-            </h1>
+            <h1 className="font-agbalumo text-3xl text-A91D3A">short note</h1>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/* Profile dropdown */}
@@ -76,10 +84,8 @@ export default function Nav() {
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition"
               >
-                <MenuItem  as="div" >
-                  <a
-                    className="0block px-4 py-3 text-lg font-bold text-C75B7A data-[focus]:bg-gray-100"
-                  >
+                <MenuItem as="div">
+                  <a className="0block px-4 py-3 text-lg font-bold text-C75B7A data-[focus]:bg-gray-100">
                     Hello, {username}
                   </a>
                 </MenuItem>
@@ -89,6 +95,15 @@ export default function Nav() {
                     className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                   >
                     Edit Profile
+                  </a>
+                </MenuItem>
+
+                <MenuItem>
+                  <a
+                    onClick={openAllCategoryModal}
+                    className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
+                  >
+                    Category
                   </a>
                 </MenuItem>
 
@@ -105,7 +120,14 @@ export default function Nav() {
           </div>
         </div>
       </div>
-      <ProfileModal isProfileOpen={isProfileOpen} closeProfileModal={closeProfileModal} />
+      <ProfileModal
+        isProfileOpen={isProfileOpen}
+        closeProfileModal={closeProfileModal}
+      />
+      <AllCategory
+        isAllCategoryOpen={isAllCategoryOpen}
+        closeAllCategoryModal={closeAllCategoryModal}
+      />
     </Disclosure>
   );
 }
