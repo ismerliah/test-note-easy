@@ -8,10 +8,15 @@ import {
 } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import axios from "axios";
-import { ColorPicker } from "antd";
+import { ColorPicker, Input } from "antd";
 import { FiX } from "react-icons/fi";
+import { Button, IconButton } from "@mui/material";
 
-function EditCategoryModal({ isEditCategoryOpen, closeEditCategoryModal, categoryId }) {
+function EditCategoryModal({
+  isEditCategoryOpen,
+  closeEditCategoryModal,
+  categoryId,
+}) {
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
 
@@ -33,10 +38,12 @@ function EditCategoryModal({ isEditCategoryOpen, closeEditCategoryModal, categor
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(color);
+    // console.log(color.toHexString().split("#")[1]);
     await axios
       .put(`${process.env.NEXT_PUBLIC_API_URL}/edit-category/${categoryId}`, {
         name: name,
-        color: color,
+        color: color ? color.toHexString() : color,
       })
       .then((result) => console.log(result), closeEditCategoryModal())
       .catch((err) => console.log(err));
@@ -74,12 +81,11 @@ function EditCategoryModal({ isEditCategoryOpen, closeEditCategoryModal, categor
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <button
-                    className="absolute top-4 right-4 text-gray-950 "
-                    onClick={closeEditCategoryModal}
-                  >
-                    <FiX size={20} />
-                  </button>
+                  <div className="absolute top-4 right-4">
+                    <IconButton onClick={closeEditCategoryModal}>
+                      <FiX size={20} />
+                    </IconButton>
+                  </div>
                   <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -100,13 +106,13 @@ function EditCategoryModal({ isEditCategoryOpen, closeEditCategoryModal, categor
                         Name
                       </label>
                       <div className="mt-2">
-                        <input
+                        <Input
                           id="name"
                           name="name"
                           type="text"
-                          required
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
                           value={name}
+                          className="w-full rounded-md"
+                          required
                           onChange={(e) => setName(e.target.value)}
                         />
                       </div>
@@ -121,20 +127,33 @@ function EditCategoryModal({ isEditCategoryOpen, closeEditCategoryModal, categor
                       </label>
                       <div className="mt-2">
                         <ColorPicker
-                          format="hex"
                           value={color}
                           onChange={setColor}
                         />
                       </div>
                     </div>
 
-                    <div className="mt-4 flex justify-end">
-                      <button
+                    <div className="mt-4 flex justify-end gap-3">
+                      <Button
+                        variant="outlined"
+                        onClick={closeEditCategoryModal}
+                        style={{
+                          borderRadius: "6px",
+                        }}
+                        disableElevation
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="contained"
                         type="submit"
-                        className="inline-flex rounded-md bg-gray-600 hover:bg-151515 text-EEEEEE px-4 py-2 text-sm font-medium"
+                        style={{
+                          borderRadius: "6px",
+                        }}
+                        disableElevation
                       >
                         Save
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </DialogPanel>

@@ -9,6 +9,7 @@ import HistoryModal from "../components/HistoryModal";
 import { FiFolderPlus, FiPlusCircle } from "react-icons/fi";
 import ProfileDropdown from "../components/ProfileDropdown";
 import EditCategoryModal from "../components/EditCategoryModal";
+import { Button } from "@mui/material";
 
 export default function HomePage() {
   const [isCreateOpen, setisCreateOpen] = useState(false);
@@ -96,7 +97,7 @@ export default function HomePage() {
       <div className="mx-auto space-y-3 max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-10 justify-end gap-2">
           <button
-            className="bg-orange-300 hover:bg-FFA823 text-EEEEEE text-sm font-bold px-3 rounded flex gap-2 items-center"
+            className="bg-FFA823 hover:bg-orange-300 text-EEEEEE text-sm font-bold px-3 rounded flex gap-2 items-center"
             onClick={openCategoryModal}
           >
             <FiFolderPlus size={20} />
@@ -104,7 +105,7 @@ export default function HomePage() {
           </button>
 
           <button
-            className="bg-C75B7A hover:bg-A91D3A text-EEEEEE text-sm font-bold px-3 rounded flex gap-2 items-center"
+            className="bg-A91D3A hover:bg-C75B7A text-EEEEEE text-sm font-bold px-3 rounded flex gap-2 items-center"
             onClick={openCreateModal}
           >
             <FiPlusCircle size={20} />
@@ -127,19 +128,16 @@ export default function HomePage() {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 py-3">
           {filteredNotes.map((note) => (
             <div
               key={note._id}
               className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-6 flex flex-col justify-between gap-3"
             >
               <div className="flex items-center justify-end">
-                <button
-                  className="text-sm text-003285 hover:text-A91D3A"
-                  onClick={() => openHistoryModal(note._id)}
-                >
+                <Button onClick={() => openHistoryModal(note._id)}>
                   Show Edit History
-                </button>
+                </Button>
               </div>
               <div className="relative flex h-10 justify-start gap-2 items-center">
                 {categories
@@ -156,10 +154,12 @@ export default function HomePage() {
                     </button>
                   ))}
               </div>
-              <div className="text-gray-900 font-bold text-xl mb-2">
+              <div className="text-gray-900 font-bold text-xl mb-2 break-word">
                 {note.title}
               </div>
-              <p className="text-gray-500 text-base mb-2">{note.content}</p>
+              <p className="text-gray-500 text-base mb-2 break-word">
+                {note.content}
+              </p>
               <div className="flex items-center justify-end mt-auto">
                 <div className="text-sm text-right">
                   <p className="text-gray-900">Date : {note.date}</p>

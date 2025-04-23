@@ -9,6 +9,8 @@ import {
 import { Fragment, useState } from "react";
 import { FiX } from "react-icons/fi";
 import axios from "axios";
+import { Input, Select } from "antd";
+import { Button, IconButton } from "@mui/material";
 
 function CreateModal({ isCreateOpen, closeCreateModal }) {
   const [username, setUsername] = useState();
@@ -18,6 +20,8 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
   const [categoryNote, setCategoryNote] = useState();
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
+
+  const { TextArea } = Input;
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -31,7 +35,6 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
         setUsername(response.data.username);
       } catch (error) {
         console.error(error);
-        
       }
     };
     fetchUser();
@@ -61,9 +64,10 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
         date: today.toLocaleDateString(),
         time: today.toLocaleTimeString(),
       })
-      .then((result) => 
-        //console.log(result), 
-      closeCreateModal())
+      .then((result) =>
+        //console.log(result),
+        closeCreateModal()
+      )
       .catch((err) => console.log(err));
   };
 
@@ -95,12 +99,11 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <button
-                    className="absolute top-4 right-4 text-gray-950 "
-                    onClick={closeCreateModal}
-                  >
-                    <FiX size={20}/>
-                  </button>
+                  <div className="absolute top-4 right-4">
+                    <IconButton onClick={closeCreateModal}>
+                      <FiX size={20} />
+                    </IconButton>
+                  </div>
                   <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -121,14 +124,15 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
                         Title
                       </label>
                       <div className="mt-2">
-                        <input
+                        <Input
                           id="title"
                           name="title"
                           type="text"
                           required
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
                           onChange={(e) => setTitle(e.target.value)}
+                          className="w-full rounded-md"
                         />
+                        
                       </div>
                     </div>
 
@@ -140,14 +144,18 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
                         Content
                       </label>
                       <div className="mt-2">
-                        <textarea
+                        <TextArea
                           id="content"
-                          rows="4"
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm"
-                          required
+                          name="content"
+                          type="textarea"
                           placeholder="Write here..."
+                          rows={4}
+                          maxLength={256}
+                          required
                           onChange={(e) => setContent(e.target.value)}
-                        ></textarea>
+                          className="w-full rounded-md"
+                        />
+                        
                       </div>
                     </div>
 
@@ -160,28 +168,45 @@ function CreateModal({ isCreateOpen, closeCreateModal }) {
                       </label>
 
                       <div className="mt-2 ">
-                        <select
-                          value={categories.name}
-                          onChange={(e) => setCategoryNote(e.target.value)}
-                          className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md"
-                        >
-                          <option value="">Select Category</option>
-                          {categories.map((cat) => (
-                            <option key={cat._id} value={cat.name}>
-                              {cat.name}
-                            </option>
-                          ))}
-                        </select>
+                        <Select
+                          placeholder="Select a category"
+                          onChange={setCategoryNote}
+                          options={categories.map((cat) => ({
+                            label: cat.name,
+                            value: cat.name,
+                          }))}
+                          className="w-full rounded-md"
+                        />
                       </div>
                     </div>
 
-                    <div className="mt-4 flex justify-end">
-                      <button
+                    <div className="mt-4 flex justify-end gap-3">
+                      <Button
+                        variant="outlined"
+                        onClick={closeCreateModal}
+                        style={{
+                          borderRadius: "6px",
+                        }}
+                        disableElevation
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        style={{
+                          borderRadius: "6px",
+                        }}
+                        disableElevation
+                      >
+                        Save
+                      </Button>
+                      {/* <button
                         type="submit"
                         className="inline-flex rounded-md bg-gray-600 hover:bg-151515 text-EEEEEE px-4 py-2 text-sm font-medium"
                       >
                         Save
-                      </button>
+                      </button> */}
                     </div>
                   </form>
                 </DialogPanel>

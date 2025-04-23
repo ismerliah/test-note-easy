@@ -7,6 +7,9 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import axios from "axios";
+import { Input, Select } from "antd";
+import { Button, IconButton } from "@mui/material";
+import { FiX } from "react-icons/fi";
 
 function EditModal({ isEditOpen, closeEditModal, noteId }) {
   const [title, setTitle] = useState("");
@@ -16,6 +19,7 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
   const [editHistory, setEditHistory] = useState([]);
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
+  const { TextArea } = Input;
 
   useEffect(() => {
     if (noteId) {
@@ -40,7 +44,9 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/getcategories`);
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/getcategories`
+        );
         setCategories(response.data);
       } catch (error) {
         console.error(error);
@@ -97,28 +103,11 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <button
-                  className="absolute top-4 right-4 text-gray-950"
-                  onClick={closeEditModal}
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18 17.94 6M18 18 6.06 6"
-                    />
-                  </svg>
-                </button>
+                <div className="absolute top-4 right-4">
+                  <IconButton onClick={closeEditModal}>
+                    <FiX size={20} />
+                  </IconButton>
+                </div>
                 <DialogTitle
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
@@ -126,65 +115,95 @@ function EditModal({ isEditOpen, closeEditModal, noteId }) {
                   Edit Note
                 </DialogTitle>
 
-                <form className="mt-6 space-y-6" onSubmit={handleSubmit} method="POST">
+                <form
+                  className="mt-6 space-y-6"
+                  onSubmit={handleSubmit}
+                  method="POST"
+                >
                   <div>
-                    <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label
+                      htmlFor="title"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
                       Title
                     </label>
                     <div className="mt-2">
-                      <input
+                      <Input
                         id="title"
                         name="title"
                         type="text"
-                        required
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
                         value={title}
+                        className="w-full rounded-md"
+                        required
                         onChange={(e) => setTitle(e.target.value)}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="content" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label
+                      htmlFor="content"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
                       Content
                     </label>
                     <div className="mt-2">
-                      <textarea
+                      <TextArea
                         id="content"
-                        rows="4"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm"
-                        required
+                        name="content"
                         placeholder="Write here..."
                         value={content}
+                        rows={4}
+                        maxLength={256}
+                        required
                         onChange={(e) => setContent(e.target.value)}
-                      ></textarea>
+                        className="w-full rounded-md"
+                      />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="category" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label
+                      htmlFor="category"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
                       Category
                     </label>
                     <div className="mt-2">
-                      <select
+                      <Select
                         value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        className="w-full px-3 py-2 mb-2 border border-gray-300 rounded-md"
-                      >
-                        <option value="">Select Category</option>
-                        {categories.map((cat) => (
-                          <option key={cat._id} value={cat.name}>
-                            {cat.name}
-                          </option>
-                        ))}
-                      </select>
+                        placeholder="Select a person"
+                        onChange={setCategory}
+                        options={categories.map((cat) => ({
+                          label: cat.name,
+                          value: cat.name,
+                        }))}
+                        className="w-full rounded-md"
+                      />
                     </div>
                   </div>
 
-                  <div className="mt-4 flex justify-end">
-                    <button type="submit" className="inline-flex rounded-md bg-gray-600 hover:bg-151515 text-EEEEEE px-4 py-2 text-sm font-medium">
+                  <div className="mt-4 flex justify-end gap-3">
+                    <Button
+                      variant="outlined"
+                      onClick={closeEditModal}
+                      style={{
+                        borderRadius: "6px",
+                      }}
+                      disableElevation
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="contained"
+                      type="submit"
+                      style={{
+                        borderRadius: "6px",
+                      }}
+                      disableElevation
+                    >
                       Save
-                    </button>
+                    </Button>
                   </div>
                 </form>
               </DialogPanel>

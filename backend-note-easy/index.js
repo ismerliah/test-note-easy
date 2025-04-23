@@ -193,7 +193,7 @@ app.put("/api/edit-category/:id", async (req, res) => {
 
     category.set(req.body);
     const updatedCategory = await category.save();
-
+    console.log(updatedCategory);
     res.send(updatedCategory);
   } catch (error) {
     res.status(500).send({

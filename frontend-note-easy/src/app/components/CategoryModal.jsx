@@ -1,20 +1,29 @@
-import React, { useEffect } from 'react'
-import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
+import React, { useEffect } from "react";
+import {
+  Dialog,
+  DialogPanel,
+  DialogTitle,
+  Transition,
+  TransitionChild,
+} from "@headlessui/react";
 import { Fragment, useState } from "react";
 import axios from "axios";
-import { ColorPicker } from 'antd';
-import { FiX } from 'react-icons/fi';
+import { ColorPicker, Input } from "antd";
+import { FiX } from "react-icons/fi";
+import { Button, IconButton } from "@mui/material";
+import tinycolor from "tinycolor2";
 
 function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
   const [category, setCategory] = useState();
-  const [categoryColor, setCategoryColor] = useState("000000");
+  const [categoryColor, setCategoryColor] = useState();
 
-  const handleSubmit = async (e) =>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(categoryColor);
     await axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/category`, {
         name: category,
-        color: categoryColor.toHexString().split("#")[1],
+        color: categoryColor ? categoryColor.toHexString() : tinycolor("#E4E4E4").toHexString(),
       })
       .then((result) => console.log(result), closeCategoryModal())
       .catch((err) => console.log(err));
@@ -48,12 +57,16 @@ function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <button
-                    className="absolute top-4 right-4 text-gray-950 "
-                    onClick={closeCategoryModal}
-                  >
-                    <FiX size={20}/>
-                  </button>
+                  <div className="absolute top-4 right-4">
+                    <IconButton
+                      onClick={() => {
+                        closeCategoryModal();
+                        setCategoryColor("#E4E4E4");
+                      }}
+                    >
+                      <FiX size={20} />
+                    </IconButton>
+                  </div>
                   <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -74,12 +87,12 @@ function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
                         Category
                       </label>
                       <div className="mt-2">
-                        <input
+                        <Input
                           id="category"
                           name="category"
                           type="text"
+                          className="w-full rounded-md"
                           required
-                          className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
                           onChange={(e) => setCategory(e.target.value)}
                         />
                       </div>
@@ -94,20 +107,34 @@ function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
                       </label>
                       <div className="mt-2">
                         <ColorPicker
-                          format="hex"
                           value={categoryColor}
                           onChange={setCategoryColor}
+                          defaultValue={"#E4E4E4"}
                         />
                       </div>
                     </div>
 
-                    <div className="mt-4 flex justify-end">
-                      <button
+                    <div className="mt-4 flex justify-end gap-3">
+                      <Button
+                        variant="outlined"
+                        onClick={closeCategoryModal}
+                        style={{
+                          borderRadius: "6px",
+                        }}
+                        disableElevation
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        variant="contained"
                         type="submit"
-                        className="inline-flex rounded-md bg-gray-600 hover:bg-151515 text-EEEEEE px-4 py-2 text-sm font-medium"
+                        style={{
+                          borderRadius: "6px",
+                        }}
+                        disableElevation
                       >
                         Save
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </DialogPanel>
@@ -120,4 +147,4 @@ function CategoryModal({ isCategoryOpen, closeCategoryModal }) {
   );
 }
 
-export default CategoryModal
+export default CategoryModal;

@@ -10,6 +10,7 @@ import { Fragment, useState } from "react";
 import axios from "axios";
 import { FiMoreVertical, FiX } from "react-icons/fi";
 import EditCategoryModal from "./EditCategoryModal";
+import { IconButton } from "@mui/material";
 
 function AllCategory({ isAllCategoryOpen, closeAllCategoryModal }) {
   const [categories, setCategories] = useState([]);
@@ -73,12 +74,11 @@ function AllCategory({ isAllCategoryOpen, closeAllCategoryModal }) {
                 leaveTo="opacity-0 scale-95"
               >
                 <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <button
-                    className="absolute top-4 right-4 text-gray-950 "
-                    onClick={closeAllCategoryModal}
-                  >
-                    <FiX size={20} />
-                  </button>
+                  <div className="absolute top-4 right-4">
+                    <IconButton onClick={closeAllCategoryModal}>
+                      <FiX size={20} />
+                    </IconButton>
+                  </div>
                   <DialogTitle
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -87,21 +87,22 @@ function AllCategory({ isAllCategoryOpen, closeAllCategoryModal }) {
                   </DialogTitle>
 
                   <div className="mt-6 space-y-6">
-                    <div className="flex flex-col gap-4">
+                    <div className="flex flex-col gap-4 px-4">
                       {categories.map((categories, index) => (
                         <div
                           key={categories._id}
                           className="flex flex-row justify-between items-center"
                         >
                           <div className="text-sm">{categories.name}</div>
-                          <button
+                          <IconButton
                             onClick={() => {
                               openEditCategoryModal(categories._id);
                               closeAllCategoryModal();
                             }}
                           >
-                            <FiMoreVertical />
-                          </button>
+                            <FiMoreVertical size={15} />
+                          </IconButton>
+                          
                         </div>
                       ))}
                     </div>

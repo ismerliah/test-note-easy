@@ -7,6 +7,9 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import axios from "axios";
+import { Button, IconButton } from "@mui/material";
+import { Input } from "antd";
+import { FiX } from "react-icons/fi";
 
 function ProfileModal({ isProfileOpen, closeProfileModal }) {
   const [username, setUsername] = useState("");
@@ -16,9 +19,12 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/user`,
+          {
+            withCredentials: true,
+          }
+        );
         if (response.data) {
           setEmail(response.data.email);
           setUsername(response.data.username);
@@ -26,8 +32,7 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
           //console.log(response.data);
         } else {
           console.error("User not found");
-          router.push('/');
-
+          router.push("/");
         }
       } catch (error) {
         console.error(error);
@@ -78,28 +83,11 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
               leaveTo="opacity-0 scale-95"
             >
               <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                <button
-                  className="absolute top-4 right-4 text-gray-950"
-                  onClick={closeProfileModal}
-                >
-                  <svg
-                    className="w-6 h-6 text-gray-800 dark:text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18 17.94 6M18 18 6.06 6"
-                    />
-                  </svg>
-                </button>
+                <div className="absolute top-4 right-4">
+                  <IconButton onClick={closeProfileModal}>
+                    <FiX size={20} />
+                  </IconButton>
+                </div>
                 <DialogTitle
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900"
@@ -120,13 +108,13 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
                       Email
                     </label>
                     <div className="mt-2">
-                      <input
+                      <Input
                         id="email"
                         name="email"
-                        type="text"
-                        required
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
+                        type="email"
                         value={email}
+                        className="w-full rounded-md"
+                        required
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
@@ -140,25 +128,39 @@ function ProfileModal({ isProfileOpen, closeProfileModal }) {
                       Username
                     </label>
                     <div className="mt-2">
-                      <input
+                      <Input
                         id="username"
                         name="username"
                         type="text"
-                        required
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-slate-800 sm:text-sm sm:leading-6"
                         value={username}
+                        className="w-full rounded-md"
+                        required
                         onChange={(e) => setUsername(e.target.value)}
                       />
                     </div>
                   </div>
 
-                  <div className="mt-4 flex justify-end">
-                    <button
+                  <div className="mt-4 flex justify-end gap-3">
+                    <Button
+                      variant="outlined"
+                      onClick={closeProfileModal}
+                      style={{
+                        borderRadius: "6px",
+                      }}
+                      disableElevation
+                    >
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="contained"
                       type="submit"
-                      className="inline-flex rounded-md bg-gray-600 hover:bg-151515 text-EEEEEE px-4 py-2 text-sm font-medium"
+                      style={{
+                        borderRadius: "6px",
+                      }}
+                      disableElevation
                     >
                       Save
-                    </button>
+                    </Button>
                   </div>
                 </form>
               </DialogPanel>
