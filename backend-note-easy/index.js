@@ -124,8 +124,8 @@ app.post('/api/create-notes', (req, res) => {
 
 app.get('/api/getnotes', (req, res) => {
     NoteModel.find()
-    .then(notes => res.json(notes))
-    .catch(err => res.json(err))
+      .then((notes) => res.json(notes))
+      .catch((err) => res.json(err));
 })
 
 app.get('/api/getnotes/:id', (req, res) => {
@@ -164,16 +164,16 @@ app.put('/api/edit-notes/:id', async (req, res) => {
   });
   
 app.post('/api/category', (req, res) => {
-    const { name, notes } = req.body;
-    CategoryModel.create({ name, notes })
+    const { name, color, notes } = req.body;
+    CategoryModel.create({ name, color, notes })
     .then(categories => res.json(categories))
     .catch(err => res.json(err))
 })
 
 app.get('/api/getcategories', (req, res) => {
     CategoryModel.find()
-    .then(categories => res.json(categories))
-    .catch(err => res.json(err))
+      .then((categories) => res.json(categories))
+      .catch((err) => res.json(err));
 })
 
 const PORT = process.env.PORT || 3001;

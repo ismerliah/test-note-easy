@@ -61,7 +61,7 @@ export default function Nav() {
         <div className="relative flex h-16 items-center">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <h1 className="font-agbalumo text-3xl text-A91D3A">
-              easy note
+              short blog
             </h1>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
