@@ -17,9 +17,12 @@ app.use(express.json())
 app.use(
   cors({
     origin: "https://test-note-easy-fe.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
-app.options('*', cors());
+app.options("*", cors());
 
 // test
 // app.use(

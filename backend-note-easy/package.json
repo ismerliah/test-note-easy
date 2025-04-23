@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js",
-    "dev:dev": "dotenv -e .env.dev -- node index.js",
-    "dev:uat": "dotenv -e .env.uat -- node index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

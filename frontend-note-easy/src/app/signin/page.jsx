@@ -27,8 +27,8 @@ export default function SigninPage() {
   return (
     <div className="bg-slate-100 h-screen ">
       {/* <AppBar /> */}
-      <div className="flex flex-col justify-center items-center">
-        <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg mt-10 p-12 max-md:w-2/5">
+      <div className="h-screen flex flex-col justify-center items-center">
+        <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 max-md:w-2/5">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
               Sign in

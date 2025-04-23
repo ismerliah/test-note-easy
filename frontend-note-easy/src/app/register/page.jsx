@@ -30,7 +30,7 @@ export default function RegisterPage() {
   return (
     <div className="bg-slate-100 h-screen">
       {/* <AppBar /> */}
-      <div className="flex flex-1 flex-col justify-center items-center">
+      <div className="h-screen flex flex-1 flex-col justify-center items-center">
         <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="mt-3 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
