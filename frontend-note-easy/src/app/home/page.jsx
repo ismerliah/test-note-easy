@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Nav from "../components/nav";
-import CreateModal from "../components/create-modal";
-import CategoryModal from "../components/category-modal";
+import CreateModal from "../components/CreateModal";
+import CategoryModal from "../components/CategoryModal";
 import axios from "axios";
-import EditModal from "../components/edit-modal";
-import HistoryModal from "../components/history-modal";
+import EditModal from "../components/EditModal";
+import HistoryModal from "../components/HistoryModal";
 import { FiFolderPlus, FiPlusCircle } from "react-icons/fi";
+import ProfileDropdown from "../components/ProfileDropdown";
+import EditCategoryModal from "../components/EditCategoryModal";
 
 export default function HomePage() {
   const [isCreateOpen, setisCreateOpen] = useState(false);
@@ -88,10 +89,10 @@ export default function HomePage() {
     selectedCategory === "All"
       ? notes
       : notes.filter((note) => note.category === selectedCategory);
-  
+
   return (
     <div className="bg-slate-100 min-h-screen">
-      <Nav />
+      <ProfileDropdown />
       <div className="mx-auto space-y-3 max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-10 justify-end gap-2">
           <button

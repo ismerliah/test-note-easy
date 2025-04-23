@@ -6,7 +6,7 @@ export default function First() {
         
           <div className="text-center sm:mx-auto sm:w-full sm:max-w-sm">
             <h2 className="font-agbalumo text-5xl text-A91D3A">
-              short blog
+              short note
             </h2>
           </div>
 

@@ -176,5 +176,32 @@ app.get('/api/getcategories', (req, res) => {
       .catch((err) => res.json(err));
 })
 
+app.get("/api/getcategories/:id", (req, res) => {
+  CategoryModel.findById(req.params.id)
+    .then((category) => res.json(category))
+    .catch((err) => res.json(err));
+});
+
+app.put("/api/edit-category/:id", async (req, res) => {
+  try {
+    const category = await CategoryModel.findById(req.params.id);
+    if (!category) {
+      return res.status(404).send({
+        message: `Category with id ${req.params.id} not found`,
+      });
+    }
+
+    category.set(req.body);
+    const updatedCategory = await category.save();
+
+    res.send(updatedCategory);
+  } catch (error) {
+    res.status(500).send({
+      message: `Error updating note with id ${req.params.id}`,
+      error: error.message,
+    });
+  }
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
