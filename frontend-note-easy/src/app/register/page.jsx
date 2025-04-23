@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import AppBar from "../components/AppBar";
+// import AppBar from "../components/AppBar";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState();
@@ -29,7 +29,7 @@ export default function RegisterPage() {
 
   return (
     <div className="bg-slate-100 h-screen">
-      <AppBar />
+      {/* <AppBar /> */}
       <div className="flex flex-1 flex-col justify-center items-center">
         <div className="bg-white rounded-lg border-y-indigo-950 shadow-lg p-12 md:w-2/5">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
