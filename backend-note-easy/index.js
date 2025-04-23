@@ -16,7 +16,7 @@ app.use(express.json())
 // PROD
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: "https://test-note-easy-fe.vercel.app",
   })
 );
 app.options('*', cors());
